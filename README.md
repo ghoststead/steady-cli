@@ -56,10 +56,10 @@ steady-cli --help
 * Ensure that your site is up and running (common problem when running locally)
 * Re-run the command with the verbose `-v` option and ensure all information is correct.
 
-A common error is that the API doesn't match.  The API version defaults to `v3`
-so if you're still on `v2` that API won't exist, hence the 404 error.
+In particular, ensure that the API version is correct. The API version defaults to `v3`
+so if you're still on `v2` that API won't yet exist and you'll get a 404 error.
 
-You can specify the API version to use in the `.env` file like:
+You can specify the API version in the `.env` file like:
 ```shell script
 API_VERSION=v2
 ```
