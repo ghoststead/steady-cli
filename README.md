@@ -1,11 +1,11 @@
-# CLI for maintain Ghost sites
+# CLI for programmatically updating Ghost sites
 
 `steady-cli` allows you to maintain your Ghost site programmatically without
-having to go back and forth to the Admin UI.
+having to go back and forth to the Admin UI.  The `steady-cli` command can easily be integrated into an existing build process.
 
 ## Prerequisites
-* npm
-* A Ghost site where you have admin rights 
+* NodeJS/npm
+* A existing Ghost site with administrator access 
 
 ## Installation
 ```shell script
