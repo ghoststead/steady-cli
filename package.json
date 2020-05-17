@@ -1,0 +1,32 @@
+{
+  "name": "steady-cli",
+  "version": "1.0.0",
+  "description": "CLI for maintaining Ghost sites",
+  "main": "index.js",
+  "bin": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghoststead/steady-cli.git"
+  },
+  "keywords": [
+    "ghost",
+    "ghoststead",
+    "steady",
+    "blog",
+    "cms",
+    "theme",
+    "cli"
+  ],
+  "author": "ghoststead@ghoststead.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ghoststead/steady-cli/issues"
+  },
+  "homepage": "https://github.com/ghoststead/steady-cli",
+  "dependencies": {
+    "@tryghost/admin-api": "^1.2.0",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "form-data": "^3.0.0"
+  }
+}
