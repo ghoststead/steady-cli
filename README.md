@@ -49,7 +49,23 @@ This command will not activate the theme, but will replace an already active the
 steady-cli --help
 ````
 
-### Roadmap
+## Troubleshooting
+
+`Error: Request failed with status code 404`
+
+* Ensure that your site is up and running (common problem when running locally)
+* Re-run the command with the verbose `-v` option and ensure all information is correct.
+
+A common error is that the API doesn't match.  The API version defaults to `v3`
+so if you're still on `v2` that API won't exist, hence the 404 error.
+
+You can specify the API version to use in the `.env` file like:
+```shell script
+API_VERSION=v2
+```
+
+
+## Roadmap
 `steady-cli` will gradually be expanded to handle other aspects of Ghost administration, specifically:
 
 * Download/upload `routes.yaml`

@@ -25,7 +25,12 @@ function publishTheme(argv) {
     let formData = new FormData();
     formData.append('file', fs.createReadStream(path));
 
-    axios.post(siteUrl + '/ghost/api/v3/admin/themes/upload/',
+    const url = `${siteUrl}/ghost/api/${version}/admin/themes/upload/`
+    if (argv.verbose) {
+        console.log(`Uploading ${path} to ${url}`);
+    }
+
+    axios.post(url,
         formData,
         {
             headers: {
@@ -35,6 +40,9 @@ function publishTheme(argv) {
         }
     )
         .then(function () {
+            if (argv.verbose) {
+                console.log('done.');
+            }
         })
         .catch(function (error) {
             console.error(error.toString());
@@ -49,6 +57,11 @@ require('yargs')
                 type: 'string'
             });
     }, publishTheme)
+    .option('verbose', {
+        alias: 'v',
+        type: 'boolean',
+        description: 'Run with verbose logging'
+    })
     .help()
     .showHelpOnFail(true)
     .demandCommand(1, '')
