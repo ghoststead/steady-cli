@@ -27,7 +27,7 @@ module.exports = {
         let formData = new FormData();
         formData.append('file', fs.createReadStream(path));
 
-        const url = `${siteUrl}/ghost/api/${version}/admin/themes/upload/`
+        const url = `${siteUrl}/ghost/api/${version}/admin/themes/upload/`;
         if (argv.verbose) {
             console.log(`Uploading ${path} to ${url}`);
         }

@@ -9,6 +9,10 @@ const execa = require('execa');
 const dirIsEmpty = require('../utils/dir-is-empty');
 const walk = require('../utils/walk');
 
+const GHOST_VERSION = '3.22.1-1';
+const GHOST_ZIPFILE = 'Ghost-' + GHOST_VERSION + '.zip'
+const URL = 'https://github.com/ghoststead/Ghost/releases/download/v' + GHOST_VERSION + '/' + GHOST_ZIPFILE;
+
 module.exports = {
     command: 'setup',
     describe: 'Setup a development environment in the current directory',
@@ -19,13 +23,12 @@ module.exports = {
             return Promise.reject(new Error('Current directory is not empty, setup cannot continue.'));
         }
 
-        console.log('Download ghost from ghoststead.com...');
-        const url = 'https://www.ghoststead.com/static/release/ghost.zip';
-        await download(url, '.dist');
+        console.log('Downloading ' + URL + '...');
+        await download(URL, '.dist');
 
         console.log('Installing base Ghost image...');
         execa.sync('ghost', ['install',
-            '--zip', '.dist/ghost.zip', '--db sqlite3',
+            '--zip', '.dist/' + GHOST_ZIPFILE, '--db sqlite3',
             '--no-prompt', '--no-stack', '--no-setup',
             '--dir', process.cwd()
         ], {stdio: 'inherit'});

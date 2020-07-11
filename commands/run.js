@@ -6,6 +6,6 @@ module.exports = {
     builder: {},
 
     handler: function () {
-        execa.sync(process.execPath, ['current/index.js'], {stdio: 'inherit'})
+        execa.sync(process.execPath, ['current/index.js'], {stdio: 'inherit'});
     }
 };
