@@ -12,5 +12,6 @@ require('yargs')
     })
     .help()
     .showHelpOnFail(true)
-    .demandCommand(1, '')
+    .strict()
+    .demandCommand(1)
     .argv;

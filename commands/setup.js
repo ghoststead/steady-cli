@@ -73,10 +73,13 @@ module.exports = {
         });
 
         console.log('Decompressing theme ...');
-        await decompress('.dist/theme.zip', 'content/themes/');
+        await decompress(
+            path.resolve('.dist', 'theme.zip'),
+            path.resolve('content', 'themes')
+        );
         fs.renameSync(
-            'content/themes/ghost-theme-ghoststead-master',
-            'content/themes/ghoststead'
+            path.resolve('content', 'themes', 'ghost-theme-ghoststead-master'),
+            path.resolve('content', 'themes', 'ghoststead')
         );
 
         console.log('Installing theme dependencies ...');
@@ -92,11 +95,12 @@ module.exports = {
         });
 
         console.log('Downloading ' + GHOST_DB_URL + ' ...');
-        await download(GHOST_DB_URL, 'content/data');
+        await download(GHOST_DB_URL, path.resolve('content/data'));
 
         console.log('Downloading ' + ROUTES_YAML_URL + ' ...');
-        await download(ROUTES_YAML_URL, 'content/settings');
+        await download(ROUTES_YAML_URL, path.resolve('content', 'settings'));
 
+        fs.writeFileSync('.nvmrc', process.version);
         console.log('SUCCESS!');
     }
 };
