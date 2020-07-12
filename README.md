@@ -1,7 +1,11 @@
-# CLI for programmatically updating Ghost sites
+# CLI for programmatically maintaining Ghost sites
+`steady-cli` is an all-in-one tool for Ghost theme development and maintaining Ghost sites programmatically.
 
-`steady-cli` allows you to maintain your Ghost site programmatically without
-having to go back and forth to the Admin UI.  The `steady-cli` command can easily be integrated into an existing build process.
+## Benefits
+* create and locally develop a new Ghost theme.
+* maintain your Ghost site programmatically without
+having to go back and forth to the Admin UI.
+* easily integerated into an existing build process.
 
 ## Prerequisites
 * NodeJS/npm
@@ -17,7 +21,9 @@ or one a per-project basis:
 npm install --save-dev steady-cli
 ```
 
-## Setup
+## Setup (for site maintenance)
+These step steps are only necessary for the site maintenance commands - e.g. `publish-theme`.
+If you only want to develop an theme locally you can hold off performing this setup until you are ready to deploy.
 
 ### Create an integration in your site
 * Go to the Integration Settings link in your Ghost site and click `Add custom integration`.
@@ -36,17 +42,56 @@ The site URL should contain the scheme - http or https - and should NOT end in a
 
 ## Usage
 
+### Create a new theme
+From an empty directory where you want your setup to live:
+```shell script
+steady setup
+```
+The `setup` command will install the following:
+* a local version of Ghost
+* a new theme under `content/data/ghoststead`
+
+If you want to check your theme into `git` (and you should),
+check in the contents of the `content/data/ghoststead` directory only.
+i.e. the `ghoststead` directory should be the top level directory in your git repository.
+
+### Start/Stop Ghost
+Start the local version of Ghost that was installed via `setup` by running the command:
+```shell script
+steady start
+```
+The `start` command will run a development version of Ghost in the background.
+Log files may be found under `content/logs`.
+
+You can stop your Ghost instance via:
+```shell script
+steady stop
+```
+
+### Theme development
+In order to develop a new theme,  you have to build it.
+Depending on your theme the build may perform many steps but at a minimum it needs
+to compile Sass files into css.  `steady-cli` can watch your theme for file changes and
+automatically build your theme when something changes.  Run:
+```shell script
+steady develop
+```
+
+The `develop` command runs in the foreground and automatically rebuilds your them whenver a source file is modified.
+You can easily extend this process by adding additional `grunt` tasks in `content/themes/ghoststead/grunfile.js`.
+
+
 ### Upload a theme
-From your theme directory - containing a `.env` file configured as above -
+From your work directory - containing a `.env` file configured as above -
 upload a built theme via:
 ```shell script
-steady-cli publish-theme /path/to/theme.zip
+steady publish-theme /path/to/theme.zip
 ```
 This command will not activate the theme, but will replace an already active theme.
 
 ### Get help
 ```shell script
-steady-cli --help
+steady --help
 ````
 
 ## Troubleshooting
