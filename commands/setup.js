@@ -32,7 +32,7 @@ module.exports = {
 
         console.log('Installing base Ghost image ...');
         execa.sync('ghost', ['install',
-            '--zip', '.dist/' + GHOST_ZIPFILE, '--db sqlite3',
+            '--zip', '.dist/' + GHOST_ZIPFILE, '--db=sqlite3',
             '--no-prompt', '--no-stack', '--no-setup',
             '--dir', process.cwd()
         ], {stdio: 'inherit'});
@@ -40,7 +40,7 @@ module.exports = {
         console.log('Initial Ghost configuration ...');
         execa.sync('ghost', ['config',
             '--ip', '0.0.0.0', '--port', '2368', '--no-prompt',
-            '--db sqlite3', '--url', 'http://localhost:2368',
+            '--db=sqlite3', '--url', 'http://localhost:2368',
             '--process', 'local',
             '--dbpath', path.resolve('content', 'data', 'ghost.db')
         ], {stdio: 'inherit'});
