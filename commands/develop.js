@@ -10,8 +10,9 @@ module.exports = {
     builder: {},
 
     handler: function () {
+        let themeName = process.env.THEME || 'ghoststead';
         execa.sync('npm', ['run', 'dev'], {
-            cwd: path.resolve('content', 'themes', 'ghoststead'),
+            cwd: path.resolve('content', 'themes', themeName),
             stdio: 'inherit'
         });
     }

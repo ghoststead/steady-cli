@@ -40,6 +40,12 @@ ADMIN_API_KEY=<admin API key>
 where each line after the equals (=) sign is replaced with your information.
 The site URL should contain the scheme - http or https - and should NOT end in a trailing slash (/).
 
+*Why use a `.env` file instead of `.steadyrc`?*
+
+Environment files are not checked into source control whereas rc files generally are.
+The `.env` file contains credential information - e.g. `ADMIN_API_KEY` -
+which should not be committed.  If you're using `git`, then your `.gitignore` file should specifically exclude `.env`.
+
 ## Usage
 
 ### Create a new theme
@@ -77,8 +83,16 @@ automatically build your theme when something changes.  Run:
 steady develop
 ```
 
-The `develop` command runs in the foreground and automatically rebuilds your them whenver a source file is modified.
+The `develop` command runs in the foreground and automatically rebuilds your theme whenever a source file is modified.
 You can easily extend this process by adding additional `grunt` tasks in `content/themes/ghoststead/grunfile.js`.
+
+If your theme name changes from the default `ghoststead`, you can add set the new theme name in the `.env` file via:
+
+```
+THEME=mytheme
+```
+where `mytheme` is replaces by the name of your theme.  Your theme should be located - for instance, checked out if using source control - in `content/themes`
+along side the `ghoststead` and `caspar` themes.
 
 
 ### Upload a theme
@@ -87,7 +101,7 @@ upload a built theme via:
 ```shell script
 steady publish-theme /path/to/theme.zip
 ```
-This command will not activate the theme, but will replace an already active theme.
+This command will not activate a new theme, but will replace an already active theme.
 
 ### Get help
 ```shell script
