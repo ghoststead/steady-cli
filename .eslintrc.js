@@ -13,6 +13,9 @@ module.exports = {
         'no-console': 'off'
     },
     globals: {
-        process: true
+        process: true,
+        test: true,
+        expect: true,
+        jest: true
     }
 };

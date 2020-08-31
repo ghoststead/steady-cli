@@ -3,7 +3,7 @@ const fs = require('fs');
 const token = require('@tryghost/admin-api/lib/token');
 const FormData = require('form-data');
 
-const requireEnv = require('../utils/require-env.js');
+const rc = require('../utils/rc.js');
 
 module.exports = {
     command: 'publish-theme <path>',
@@ -20,8 +20,8 @@ module.exports = {
     handler: function (argv) {
         const path = argv.path;
 
-        const siteUrl = requireEnv('SITE_URL');
-        const adminApiKey = requireEnv('ADMIN_API_KEY');
+        const siteUrl = rc.require('siteUrl');
+        const adminApiKey = rc.require('adminApiKey');
         const version = process.env.API_VERSION || 'v3';
 
         let formData = new FormData();

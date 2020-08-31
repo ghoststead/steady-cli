@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 const path = require('path');
 
-require('dotenv').config();
-
 require('yargs')
     .commandDir(path.join(__dirname, 'commands'))
     .option('verbose', {

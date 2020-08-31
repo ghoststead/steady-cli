@@ -46,8 +46,7 @@ Environment files are not checked into source control whereas rc files generally
 The `.env` file contains credential information - e.g. `ADMIN_API_KEY` -
 which should not be committed.  If you're using `git`, then your `.gitignore` file should specifically exclude `.env`.
 
-*New in 1.4.0*
-You can now create the `.env` with a single command:
+__New in 1.4.0__: You can now create `.env` with a single command:
 ```
 steady initenv
 ```
