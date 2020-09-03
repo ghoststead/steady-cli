@@ -28,9 +28,9 @@ const removeDir = (dirPath) => {
     }
 };
 
-test('Download is working', async () => {
+test('Download is working', () => {
     const downloadJs = require('utils/download.js');
     createDir(tempDir);
-    await expect(downloadJs(THEME_URL, tempDir, 'theme.zip'));
-    removeDir('temp1');
+    downloadJs(THEME_URL, tempDir, 'theme.zip');
+    //removeDir('temp1');
 });
