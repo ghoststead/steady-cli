@@ -1,6 +1,6 @@
 const fs = require('fs');
 const THEME_URL = 'https://github.com/ghoststead/ghost-theme-ghoststead/archive/master.zip';
-const tempDir = '/tempDownload';
+const tempDownldDir = '/tempDcomp';
 const createDir = (dirPath) => {
     fs.mkdirSync(process.cwd() + dirPath, {recursive: true, mode: '0777'}, (err) => {
         if (err) {
@@ -28,9 +28,9 @@ const removeDir = (dirPath) => {
     }
 };
 
-test('download is working', () => {
-    const download = require('utils/download.js');
-    createDir(tempDir);
-    download(THEME_URL, tempDir, 'theme.zip');
-    removeDir('tempDownload');
+test('decompress is working', () => {
+    const decompress = require('utils/decompress.js');
+    createDir(tempDownldDir);
+    decompress(THEME_URL, tempDownldDir, 'theme.zip');
+    removeDir('tempDcomp');
 });
