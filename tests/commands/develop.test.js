@@ -5,5 +5,5 @@ test('develop', () => {
     expect(develop.command).toBe('develop');
     expect(develop.describe).toBeTruthy();
     expect(develop.builder).toStrictEqual({});
-    expect(develop.handler()).toBe(undefined);
+    expect(develop.handler()).toBeUndefined();
 });
