@@ -1,4 +1,6 @@
-test('initenv not found', () => {
+const fs = require('fs');
+
+test('.env not exists', () => {
     const originalError = console.error;
     console.error = jest.fn();
     const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {
@@ -11,3 +13,12 @@ test('initenv not found', () => {
     expect(mockExit).toHaveBeenCalledWith(1);
     console.error = originalError;
 });
+
+test('.env already exists', () => {
+    const initrc = require('commands/initrc');
+    expect(initrc.command).toBe('initrc');
+    expect(initrc.describe).toBeTruthy();
+    expect(initrc.builder).toStrictEqual({});
+    expect(fs.existsSync('.env')).toBeTruthy();
+});
+
