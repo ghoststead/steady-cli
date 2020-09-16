@@ -25,3 +25,11 @@ test('publish theme', async () => {
     const resp = {data: theme};
     axios.post.mockResolvedValue(resp);
 });
+
+test('publish theme api error', async () => {
+    const publishTheme = require('commands/publish-theme');
+    const errorMessage = 'Network Error';
+    axios.post.mockImplementationOnce(() =>
+      Promise.reject(new Error(errorMessage)),
+    );
+});
