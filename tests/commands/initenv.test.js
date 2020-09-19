@@ -15,10 +15,10 @@ test('.env not exists', () => {
 });
 
 test('.env already exists', () => {
-    const initrc = require('commands/initrc');
-    expect(initrc.command).toBe('initrc');
-    expect(initrc.describe).toBeTruthy();
-    expect(initrc.builder).toStrictEqual({});
+    const initenv = require('commands/initenv');
+    expect(initenv.command).toBe('initenv');
+    expect(initenv.describe).toBeTruthy();
+    expect(initenv.builder).toStrictEqual({});
     expect(fs.existsSync('.env')).toBeTruthy();
 });
 
