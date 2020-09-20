@@ -1,4 +1,5 @@
 const fs = require('fs');
+const rimraf = require('rimraf');
 
 test('.env not exists', () => {
     const originalError = console.error;
@@ -19,6 +20,12 @@ test('.env already exists', () => {
     expect(initenv.command).toBe('initenv');
     expect(initenv.describe).toBeTruthy();
     expect(initenv.builder).toStrictEqual({});
+    expect(fs.existsSync('.env')).toBeTruthy();
+    fs.rename('.env','.envtmp',() => {});
+    rimraf('.env', () => {});
+    expect(initenv.handler()).toBeUndefined();
+    fs.rename('.envtmp','.env',() => {});
+    rimraf('.envtmp', () => {});
     expect(fs.existsSync('.env')).toBeTruthy();
 });
 
