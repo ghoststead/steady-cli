@@ -24,6 +24,7 @@ test('publish theme', async () => {
     };
     const resp = {data: theme};
     axios.post.mockResolvedValue(resp);
+    publishTheme.handler({path: process.cwd(), verbose: 'test'});
 });
 
 test('publish theme api error', async () => {
