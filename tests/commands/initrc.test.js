@@ -1,3 +1,5 @@
+const os = require('os');
+const path = require('path');
 const fs = require('fs');
 const rimraf = require('rimraf');
 
@@ -21,10 +23,11 @@ test('.steadyrc already exists', () => {
     expect(initrc.describe).toBeTruthy();
     expect(initrc.builder).toStrictEqual({});
     expect(fs.existsSync('.steadyrc')).toBeTruthy();
-    fs.rename('.steadyrc','.steadyrctemp', () => {});
-    rimraf('.steadyrc', () => {});
+    const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
+    process.chdir(tmpDir);
+    fs.rename('.steadyrc',tmpDir + path.sep + '.steadyrc',() => {});
     expect(initrc.handler()).toBeUndefined();
-    fs.rename('.steadyrctemp','.steadyrc', () => {});
-    rimraf('.steadyrctemp', () => {});
+    fs.rename(tmpDir + path.sep + '.steadyrc','.steadyrc',() => {});
     expect(fs.existsSync('.steadyrc')).toBeTruthy();
+    rimraf.sync(tmpDir);
 });

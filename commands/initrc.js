@@ -17,7 +17,7 @@ module.exports = {
             console.error('ERROR: .steadyrc already exists.');
             process.exit(1);
         } else {
-            fs.writeFileSync('.steadyrc', content + '\n');
+            fs.writeFileSync('.steadyrc', content + '\n', {flag: 'a+'});
         }
     }
 };

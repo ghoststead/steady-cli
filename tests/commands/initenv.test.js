@@ -1,3 +1,5 @@
+const os = require('os');
+const path = require('path');
 const fs = require('fs');
 const rimraf = require('rimraf');
 
@@ -21,11 +23,12 @@ test('.env exists', () => {
     expect(initenv.describe).toBeTruthy();
     expect(initenv.builder).toStrictEqual({});
     expect(fs.existsSync('.env')).toBeTruthy();
-    fs.rename('.env','.envtmp',() => {});
-    rimraf('.env', () => {});
+    const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
+    process.chdir(tmpDir);
+    fs.rename('.env',tmpDir + path.sep + '.env',() => {});
     expect(initenv.handler()).toBeUndefined();
-    fs.rename('.envtmp','.env',() => {});
-    rimraf('.envtmp', () => {});
+    fs.rename(tmpDir + path.sep + '.env','.env',() => {});
     expect(fs.existsSync('.env')).toBeTruthy();
+    rimraf.sync(tmpDir);
 });
 

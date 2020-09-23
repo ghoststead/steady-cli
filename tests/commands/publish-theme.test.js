@@ -1,3 +1,4 @@
+/*eslint-env mocha */
 const cosmiconfig = require('cosmiconfig');
 const axios = require('axios');
 

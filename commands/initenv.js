@@ -21,7 +21,7 @@ module.exports = {
             console.error('ERROR: .env already exists.');
             process.exit(1);
         } else {
-            fs.writeFileSync('.env', DEFAULT);
+            fs.writeFileSync('.env', DEFAULT, {flag: 'a+'});
         }
     }
 };
