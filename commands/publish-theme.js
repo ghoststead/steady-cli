@@ -10,6 +10,7 @@ module.exports = {
     describe: 'Publish the theme to your Ghost site',
 
     builder: function (yargs) {
+        /* istanbul ignore next */
         yargs
             .positional('path', {
                 describe: 'Path of the zip file containing the theme',
@@ -28,6 +29,7 @@ module.exports = {
         formData.append('file', fs.createReadStream(path));
 
         const url = `${siteUrl}/ghost/api/${version}/admin/themes/upload/`;
+
         if (argv.verbose) {
             console.log(`Uploading ${path} to ${url}`);
         }
@@ -42,6 +44,7 @@ module.exports = {
             }
         )
             .then(function () {
+                /* istanbul ignore next */
                 if (argv.verbose) {
                     console.log('done.');
                 }

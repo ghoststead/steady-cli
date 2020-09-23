@@ -1,7 +1,7 @@
 const fs = require('fs');
 const rimraf = require('rimraf');
 
-test('.env not exists', () => {
+test('.env not', () => {
     const originalError = console.error;
     console.error = jest.fn();
     const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {
@@ -15,7 +15,7 @@ test('.env not exists', () => {
     console.error = originalError;
 });
 
-test('.env already exists', () => {
+test('.env exists', () => {
     const initenv = require('commands/initenv');
     expect(initenv.command).toBe('initenv');
     expect(initenv.describe).toBeTruthy();
