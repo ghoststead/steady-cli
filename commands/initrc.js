@@ -1,4 +1,5 @@
 const fs = require('fs');
+const rimraf = require('rimraf');
 
 const DEFAULT = {
     siteUrl: '<YOUR GHOST SITE URL>',
@@ -17,6 +18,7 @@ module.exports = {
             console.error('ERROR: .steadyrc already exists.');
             process.exit(1);
         } else {
+            rimraf.sync('.steadyrc');
             fs.writeFileSync('.steadyrc', content + '\n', {flag: 'a+'});
         }
     }
