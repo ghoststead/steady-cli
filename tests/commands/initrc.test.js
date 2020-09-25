@@ -22,10 +22,13 @@ test('.steadyrc already exists', () => {
     expect(initrc.command).toBe('initrc');
     expect(initrc.describe).toBeTruthy();
     expect(initrc.builder).toStrictEqual({});
-    expect(fs.existsSync('.steadyrc')).toBeTruthy();
     const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
     process.chdir(tmpDir);
+    if (fs.existsSync(tmpDir + path.sep + '.steadyrc')) {
+        rimraf.sync(tmpDir + path.sep + '.steadyrc');
+    }
     fs.rename('.steadyrc',tmpDir + path.sep + '.steadyrc',() => {});
+    rimraf.sync('.steadyrc');
     expect(initrc.handler()).toBeUndefined();
     fs.rename(tmpDir + path.sep + '.steadyrc','.steadyrc',() => {});
     expect(fs.existsSync('.steadyrc')).toBeTruthy();

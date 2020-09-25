@@ -22,10 +22,13 @@ test('.env exists', () => {
     expect(initenv.command).toBe('initenv');
     expect(initenv.describe).toBeTruthy();
     expect(initenv.builder).toStrictEqual({});
-    expect(fs.existsSync('.env')).toBeTruthy();
     const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
     process.chdir(tmpDir);
+    if (fs.existsSync(tmpDir + path.sep + '.env')) {
+        rimraf.sync(tmpDir + path.sep + '.env');
+    }
     fs.rename('.env',tmpDir + path.sep + '.env',() => {});
+    rimraf.sync('.env');
     expect(initenv.handler()).toBeUndefined();
     fs.rename(tmpDir + path.sep + '.env','.env',() => {});
     expect(fs.existsSync('.env')).toBeTruthy();
