@@ -4,10 +4,8 @@ module.exports = (function () {
     const sync = cosmiconfigSync('steady');
     const result = sync.search();
 
-    let config = {};
-    if (result && result.config) {
-        config = result.config;
-    }
+    let config = result.config;
+
     return {
         require: function (name) {
             let value = config[name];

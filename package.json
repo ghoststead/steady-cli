@@ -56,7 +56,7 @@
             "."
         ],
         "testMatch": [
-            "**/tests/**/*.js"
+            "**/tests/**/*.test.js"
         ]
     }
 }

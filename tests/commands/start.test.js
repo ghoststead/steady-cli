@@ -5,5 +5,5 @@ test('start', () => {
     expect(start.command).toBe('start');
     expect(start.describe).toBeTruthy();
     expect(start.builder).toStrictEqual({});
-    expect(start.handler()).toBe(undefined);
+    expect(start.handler()).toBeUndefined();
 });

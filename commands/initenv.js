@@ -1,4 +1,5 @@
 const fs = require('fs');
+const rimraf = require('rimraf');
 
 const DEFAULT = `
 # Full URL of your Ghost site
@@ -20,7 +21,9 @@ module.exports = {
         if (fs.existsSync('.env')) {
             console.error('ERROR: .env already exists.');
             process.exit(1);
+        } else {
+            rimraf.sync('.env');
+            fs.writeFileSync('.env', DEFAULT, {flag: 'a+'});
         }
-        fs.writeFileSync('.env', DEFAULT);
     }
 };
