@@ -1,4 +1,5 @@
-[![Coverage Status](https://coveralls.io/repos/github/ghoststead/steady-cli/badge.svg?branch=master)](https://coveralls.io/github/ghoststead/steady-cli?branch=master)
+![GitHub](https://img.shields.io/github/license/ghoststead/steady-cli?label=License)
+![Coverage](./badges/coverage.svg)
 
 # CLI for programmatically maintaining Ghost sites
 `steady-cli` is an all-in-one tool for Ghost theme development and maintaining Ghost sites programmatically.
