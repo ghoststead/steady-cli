@@ -7,10 +7,9 @@ const rc = require('../utils/rc.js');
 
 module.exports = {
     command: 'publish-theme <path>',
-    describe: 'Publish the theme to your Ghost site',
+    describe: 'Publish a Ghost theme using a given path',
 
     builder: function (yargs) {
-        /* istanbul ignore next */
         yargs
             .positional('path', {
                 describe: 'Path of the zip file containing the theme',
@@ -23,7 +22,7 @@ module.exports = {
 
         const siteUrl = rc.require('siteUrl');
         const adminApiKey = rc.require('adminApiKey');
-        const version = process.env.API_VERSION || 'v3';
+        const version = rc.config.version || 'v3';
 
         let formData = new FormData();
         formData.append('file', fs.createReadStream(path));
@@ -44,7 +43,6 @@ module.exports = {
             }
         )
             .then(function () {
-                /* istanbul ignore next */
                 if (argv.verbose) {
                     console.log('done.');
                 }

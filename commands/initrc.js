@@ -1,8 +1,8 @@
 const fs = require('fs');
 
 const DEFAULT = {
-    siteUrl: '<YOUR GHOST SITE URL>',
-    adminApiKey: '<GHOST ADMIN API KEY>',
+    siteUrl: null,
+    adminApiKey: null,
     themeName: 'ghoststead'
 };
 
@@ -15,7 +15,7 @@ module.exports = {
         const content = JSON.stringify(DEFAULT, null, 4);
         if (fs.existsSync('.steadyrc')) {
             console.error('ERROR: .steadyrc already exists.');
-            process.exit(1);
+            return process.exit(1);
         }
 
         fs.writeFileSync('.steadyrc', content + '\n');

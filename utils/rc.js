@@ -4,7 +4,7 @@ module.exports = (function () {
     const sync = cosmiconfigSync('steady');
     const result = sync.search();
 
-    let config = result.config;
+    let config = result ? result.config : {};
 
     return {
         require: function (name) {

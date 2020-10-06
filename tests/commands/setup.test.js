@@ -30,7 +30,7 @@ test('setup', async () => {
     expect(setup.builder).toStrictEqual({});
 
     await setup.handler();
-    await rimraf.sync(tmpDir);
+    rimraf.sync(tmpDir);
 });
 
 test('setup directory not empty', async () => {

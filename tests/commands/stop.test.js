@@ -1,4 +1,3 @@
-
 jest.mock('execa');
 
 test('stop', () => {
