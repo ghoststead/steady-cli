@@ -7,6 +7,7 @@ const download = require('download');
 const decompress = require('decompress');
 const execa = require('execa');
 
+const initrc = require('../commands/initrc');
 const dirIsEmpty = require('../utils/dir-is-empty');
 const walk = require('../utils/walk');
 
@@ -101,6 +102,8 @@ module.exports = {
         await download(ROUTES_YAML_URL, path.resolve('content', 'settings'));
 
         fs.writeFileSync('.nvmrc', process.version);
+        initrc.handler();
+
         console.log('SUCCESS!');
     }
 };

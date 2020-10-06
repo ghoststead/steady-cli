@@ -19,42 +19,17 @@ having to go back and forth to the Admin UI.
 npm install -g steady-cli
 ```
 
-or one a per-project basis:
+or on a per-project basis:
 ```shell script
 npm install --save-dev steady-cli
 ```
 
-## Setup (for site maintenance)
-These step steps are only necessary for the site maintenance commands - e.g. `publish-theme`.
-If you only want to develop an theme locally you can hold off performing this setup until you are ready to deploy.
-
-### Create an integration in your site
+## Create an integration in your site (for publish)
 * Go to the Integration Settings link in your Ghost site and click `Add custom integration`.
 * Give the new integration any name you want e.g. Ghoststead and hit 'Create'.
 * Note the 'Admin API Key' to be used later.
 
-
-### Create a .env file for your project
-Create file name `.env` in your project directory containing the following information.
-```shell script
-SITE_URL=<your site URL>
-ADMIN_API_KEY=<admin API key>
-```
-where each line after the equals (=) sign is replaced with your information.
-The site URL should contain the scheme - http or https - and should NOT end in a trailing slash (/).
-
-*Why use a `.env` file instead of `.steadyrc`?*
-
-Environment files are not checked into source control whereas rc files generally are.
-The `.env` file contains credential information - e.g. `ADMIN_API_KEY` -
-which should not be committed.  If you're using `git`, then your `.gitignore` file should specifically exclude `.env`.
-
-__New in 1.4.0__: You can now create `.env` with a single command:
-```
-steady initenv
-```
-The above command will created a commented `.env` file that you can custimized.
-
+This integration will be used to `publish` your theme to an existing site.
 
 ## Usage
 
@@ -96,22 +71,39 @@ steady develop
 The `develop` command runs in the foreground and automatically rebuilds your theme whenever a source file is modified.
 You can easily extend this process by adding additional `grunt` tasks in `content/themes/ghoststead/grunfile.js`.
 
-If your theme name changes from the default `ghoststead`, you can add set the new theme name in the `.env` file via:
+If your theme name changes from the default `ghoststead`, you can add set the new theme name in the `.steadyrc` file via:
 
-```
-THEME=mytheme
+```json
+{
+    "themeName": "mytheme"
+}
 ```
 where `mytheme` is replaces by the name of your theme.  Your theme should be located - for instance, checked out if using source control - in `content/themes`
-along side the `ghoststead` and `caspar` themes.
+along side the `ghoststead` and `casper` themes.
 
 
 ### Upload a theme
-From your work directory - containing a `.env` file configured as above -
-upload a built theme via:
+To upload a theme using the steady CLI, you have to create a integration in your site and
+set both `siteUrl` and `adminApiKey` in your `.steadyrc` file.  The `.steadyrc` file was automatically
+created when running the 'setup' command.  You may recreate the the rc file via:
+```
+steady initrc
+```
+
+Once your `.steadyrc` file is configured, you can upload a built theme via:
+```
+steady publish
+```
+
+This command will upload the zipped theme from your theme's `dist` directory using the configuration
+in the theme `package.json` file.
+
+If you want to upload a different theme by its path, you can run:
 ```shell script
 steady publish-theme /path/to/theme.zip
 ```
-This command will not activate a new theme, but will replace an already active theme.
+
+*NOTE* None of the above commands will activate the uploaded theme.
 
 ### Get help
 ```shell script
@@ -128,9 +120,11 @@ steady --help
 In particular, ensure that the API version is correct. The API version defaults to `v3`
 so if you're still on `v2` that API won't yet exist and you'll get a 404 error.
 
-You can specify the API version in the `.env` file like:
-```shell script
-API_VERSION=v2
+You can specify the API version in the `.steadyrc` file like:
+```json
+{
+    "version": "v2"
+}
 ```
 
 
