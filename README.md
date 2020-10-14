@@ -105,6 +105,22 @@ steady publish-theme /path/to/theme.zip
 
 *NOTE* None of the above commands will activate the uploaded theme.
 
+### Using a different working directory
+By default, the `steady` command uses the current working directory as the location of the Ghost 
+installation and tries to find your theme relative to that directory.  In some cases, it may be helpful to run 
+`steady` from another directory and reference your local Ghost installation.  One such
+example is having a `.steadyrc` file inside of theme that is symbolic linked into `content\themes`.
+
+To run `steady` from a different directory than your Ghost installation specify the working
+directory in one of two ways:
+* Use the --workdir command line option
+* Use specify "workDir" in your `.steadyrc` file.
+
+If both options are used - i.e. you specify workdir on the command line and you have workDir in
+your `.steadyrc` file - then the command line option takes precedence and the `.steadyrc` file
+option is simply ignored.
+
+
 ### Get help
 ```shell script
 steady --help
