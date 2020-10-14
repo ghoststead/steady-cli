@@ -1,17 +1,18 @@
+const os = require('os');
 const fs = require('fs');
-const osTmpdir = require('os-tmpdir');
+const path = require('path');
 const rimraf = require('rimraf');
-const tempDir = '/dir_is_empty';
-const createDir = (dirPath) => {
-    fs.mkdirSync(osTmpdir() + dirPath, {recursive: true, mode: '0777'});
-};
+
 test('dir is not empty', () => {
+    const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
     const dirIsEmpty = require('utils/dir-is-empty.js');
-    expect(!dirIsEmpty(osTmpdir())).toBeTruthy();
+    expect(!dirIsEmpty(os.tmpdir())).toBeTruthy();
+    rimraf.sync(tmpDir);
 });
+
 test('dir is empty', () => {
+    const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
     const dirIsEmpty = require('utils/dir-is-empty.js');
-    createDir(tempDir);
-    expect(dirIsEmpty(osTmpdir() + tempDir)).toBeTruthy();
-    rimraf(osTmpdir() + tempDir, () => {});
+    expect(dirIsEmpty(tmpDir)).toBeTruthy();
+    rimraf.sync(tmpDir);
 });

@@ -17,8 +17,8 @@ module.exports = {
             });
     },
 
-    handler: function (argv) {
-        const path = argv.path;
+    handler: function (args) {
+        const path = args.path;
 
         const siteUrl = rc.require('siteUrl');
         const adminApiKey = rc.require('adminApiKey');
@@ -29,7 +29,7 @@ module.exports = {
 
         const url = `${siteUrl}/ghost/api/${version}/admin/themes/upload/`;
 
-        if (argv.verbose) {
+        if (args.verbose) {
             console.log(`Uploading ${path} to ${url}`);
         }
 
@@ -43,7 +43,7 @@ module.exports = {
             }
         )
             .then(function () {
-                if (argv.verbose) {
+                if (args.verbose) {
                     console.log('done.');
                 }
             })

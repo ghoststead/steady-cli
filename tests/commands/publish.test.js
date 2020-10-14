@@ -4,6 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
 
+const rc = require('utils/rc');
+
 const publishTheme = require('commands/publish-theme');
 publishTheme.handler = jest.fn();
 
@@ -27,7 +29,7 @@ test('publish', async () => {
     process.chdir(tmpDir);
     const expectedPath = path.join(themeDir, 'dist', 'tested-0.0.0.zip');
 
-    await publish.handler({});
+    await publish.handler({workdir: '.'});
     expect(publishTheme.handler).toHaveBeenCalledWith({
         path: expectedPath
     });
@@ -36,6 +38,8 @@ test('publish', async () => {
 });
 
 test('publish verbose', async () => {
+    rc.config = {workDir: '.'};
+
     const publish = require('commands/publish');
     expect(publish.command).toContain('publish');
     expect(publish.describe).toBeTruthy();
@@ -59,7 +63,9 @@ test('publish verbose', async () => {
         verbose: true
     });
 
+    process.chdir(__dirname);
     rimraf.sync(tmpDir);
+    rc.config = {};
 });
 
 test('publish no theme', async () => {
@@ -75,6 +81,7 @@ test('publish no theme', async () => {
     expect(process.exit).toHaveBeenCalledWith(1);
     expect(console.error).toBeCalledTimes(1);
 
+    process.chdir(__dirname);
     rimraf.sync(tmpDir);
 });
 
@@ -94,5 +101,6 @@ test('publish no theme package.json', async () => {
     expect(process.exit).toHaveBeenCalledWith(1);
     expect(console.error).toBeCalledTimes(1);
 
+    process.chdir(__dirname);
     rimraf.sync(tmpDir);
 });

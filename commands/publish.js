@@ -12,6 +12,12 @@ module.exports = {
     handler: async function (args) {
         let themeName = rc.config.themeName || 'ghoststead';
 
+        if (args.workdir) {
+            process.chdir(args.workdir);
+        } else if (rc.config.workDir) {
+            process.chdir(rc.config.workDir);
+        }
+
         let themePath = path.resolve('content', 'themes', themeName);
         if (!fs.existsSync(themePath)) {
             console.error('Theme path not found: ' + themePath);

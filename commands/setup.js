@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 
@@ -24,7 +22,11 @@ module.exports = {
     describe: 'Setup a development environment in the current directory',
     builder: {},
 
-    handler: async function () {
+    handler: async function (args) {
+        if (args.workdir) {
+            process.chdir(args.workdir);
+        }
+
         if (!dirIsEmpty(process.cwd())) {
             return Promise.reject(new Error('Current directory is not empty, setup cannot continue.'));
         }
@@ -102,7 +104,7 @@ module.exports = {
         await download(ROUTES_YAML_URL, path.resolve('content', 'settings'));
 
         fs.writeFileSync('.nvmrc', process.version);
-        initrc.handler();
+        initrc.handler(args);
 
         console.log('SUCCESS!');
     }

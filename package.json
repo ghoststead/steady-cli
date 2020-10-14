@@ -52,7 +52,8 @@
         "eslint": "^7.0.0",
         "eslint-plugin-ghost": "^1.4.1",
         "jest": "^26.4.2",
-        "make-coverage-badge": "^1.2.0"
+        "make-coverage-badge": "^1.2.0",
+        "rimraf": "^3.0.2"
     },
     "jest": {
         "coverageReporters": [

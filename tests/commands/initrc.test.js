@@ -11,7 +11,7 @@ test('initrc', () => {
 
     const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
     process.chdir(tmpDir);
-    expect(initrc.handler()).toBeUndefined();
+    expect(initrc.handler({})).toBeUndefined();
     expect(fs.existsSync(tmpDir + path.sep + '.steadyrc'));
     rimraf.sync(tmpDir);
 });
@@ -29,7 +29,7 @@ test('initrc .steadyrc already exists', () => {
     process.chdir(tmpDir);
     fs.writeFileSync(tmpDir + path.sep + '.steadyrc', '');
 
-    expect(initrc.handler()).toBeUndefined();
+    expect(initrc.handler({workdir: '.'})).toBeUndefined();
     expect(process.exit).toHaveBeenCalledWith(1);
     rimraf.sync(tmpDir);
 });

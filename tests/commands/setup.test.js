@@ -11,7 +11,6 @@ test('setup', async () => {
     fs.renameSync = jest.fn;
 
     const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
-    process.chdir(tmpDir);
 
     jest.mock('download', () => {
         return jest.fn().mockImplementationOnce(() => {
@@ -29,7 +28,7 @@ test('setup', async () => {
     expect(setup.describe).toBeTruthy();
     expect(setup.builder).toStrictEqual({});
 
-    await setup.handler();
+    await setup.handler({workdir: tmpDir});
     rimraf.sync(tmpDir);
 });
 
@@ -41,7 +40,7 @@ test('setup directory not empty', async () => {
     const setup = require('commands/setup');
 
     expect.assertions(1);
-    await expect(setup.handler).rejects.toEqual(
+    await expect(setup.handler({})).rejects.toEqual(
         Error('Current directory is not empty, setup cannot continue.')
     );
 });

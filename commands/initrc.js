@@ -11,7 +11,11 @@ module.exports = {
     describe: 'Initialize a new rc file',
     builder: {},
 
-    handler: function () {
+    handler: function (args) {
+        if (args.workdir) {
+            process.chdir(args.workdir);
+        }
+
         const content = JSON.stringify(DEFAULT, null, 4);
         if (fs.existsSync('.steadyrc')) {
             console.error('ERROR: .steadyrc already exists.');

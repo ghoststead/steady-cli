@@ -7,7 +7,7 @@ module.exports = {
     },
     plugins: ['ghost'],
     extends: [
-        'plugin:ghost/node',
+        'plugin:ghost/node'
     ],
     rules: {
         'no-console': 'off'
