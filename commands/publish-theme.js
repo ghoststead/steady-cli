@@ -39,7 +39,9 @@ module.exports = {
                 headers: {
                     Authorization: `Ghost ${token(version, adminApiKey)}`,
                     ...formData.getHeaders()
-                }
+                },
+                maxContentLength: Infinity,
+                maxBodyLength: Infinity
             }
         )
             .then(function () {
