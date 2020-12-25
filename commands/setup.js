@@ -60,7 +60,7 @@ module.exports = {
         );
 
         console.log('Installing sqlite3 in local Ghost ...');
-        execa.sync('npm', ['install', 'sqlite3'], {
+        execa.sync('npx', ['yarn', 'add', 'sqlite3'], {
             cwd: path.resolve('current'),
             stdio: 'inherit'
         });
