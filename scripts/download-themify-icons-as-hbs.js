@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const assert = require('assert');
 
 const download = require('download');
 const xml2js = require('xml2js');
@@ -10,7 +11,17 @@ const execa = require('execa');
 const THEMIFY_URL = 'https://themify.me/download/7/';
 const THEMIFY_FILENAME = 'themify-icons-font.zip';
 
-const parser = new xml2js.Parser();
+function changeFill(value, name) {
+    if (name === 'fill') {
+        assert(value === '#000000');
+        return 'currentColor';
+    }
+    return value;
+}
+
+const parser = new xml2js.Parser({
+    attrValueProcessors: [changeFill]
+});
 const builder = new xml2js.Builder();
 
 (async () => {
