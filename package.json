@@ -34,7 +34,7 @@
     "homepage": "https://github.com/ghoststead/steady-cli",
     "dependencies": {
         "@tryghost/admin-api": "^1.2.0",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "bl": "^4.0.3",
         "cosmiconfig": "^7.0.0",
         "decompress": "^4.2.1",
