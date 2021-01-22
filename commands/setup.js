@@ -9,7 +9,7 @@ const initrc = require('../commands/initrc');
 const dirIsEmpty = require('../utils/dir-is-empty');
 const walk = require('../utils/walk');
 
-const GHOST_VERSION = '3.25.0-1';
+const GHOST_VERSION = '3.40.5-1';
 const GHOST_ZIPFILE = 'Ghost-' + GHOST_VERSION + '.zip';
 const GHOST_URL = 'https://github.com/ghoststead/Ghost/releases/download/v' + GHOST_VERSION + '/' + GHOST_ZIPFILE;
 const GHOST_DB_URL = 'https://github.com/ghoststead/Ghost/releases/download/v' + GHOST_VERSION + '/ghost.db';
