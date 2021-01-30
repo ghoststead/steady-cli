@@ -5,17 +5,17 @@ module.exports = {
         node: true,
         commonjs: true
     },
-    plugins: ['ghost'],
+    plugins: ['ghost', 'jest'],
     extends: [
-        'plugin:ghost/node'
+        'plugin:ghost/node',
+        'plugin:jest/all'
     ],
     rules: {
-        'no-console': 'off'
+        'no-console': 'off',
+        'prefer-template': 'error'
     },
     globals: {
         process: true,
-        test: true,
-        expect: true,
-        jest: true
+        'jest/globals': true
     }
 };

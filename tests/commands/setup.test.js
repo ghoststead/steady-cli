@@ -6,41 +6,47 @@ const rimraf = require('rimraf');
 jest.mock('execa');
 jest.mock('decompress');
 
-test('setup', async () => {
-    console.log = jest.fn;
-    fs.renameSync = jest.fn;
+describe('setup', () => {
+    it('should initialize directory', async () => {
+        expect.assertions(3);
+        console.log = jest.fn;
+        fs.renameSync = jest.fn;
 
-    const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
+        const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
 
-    jest.mock('download', () => {
-        return jest.fn().mockImplementationOnce(() => {
-            const fs = require('fs');
-            const path = require('path');
+        jest.mock('download', () => {
+            return jest.fn().mockImplementationOnce(() => {
+                const fs = require('fs');
+                const path = require('path');
 
-            const currentDir = process.cwd() + path.sep + 'current' + path.sep;
-            fs.mkdirSync(currentDir);
-            fs.writeFileSync(currentDir + path.sep + 'README', '');
+                const currentDir = `${process.cwd() + path.sep}current${path.sep}`;
+                fs.mkdirSync(currentDir);
+                fs.writeFileSync(`${currentDir + path.sep}README`, '');
+            });
         });
+
+        const setup = require('commands/setup');
+        expect(setup.command).toBe('setup');
+        expect(setup.describe).toBeTruthy();
+        expect(setup.builder).toStrictEqual({});
+
+        await setup.handler({workdir: tmpDir});
+        process.chdir(__dirname);
+        rimraf.sync(tmpDir);
     });
 
-    const setup = require('commands/setup');
-    expect(setup.command).toBe('setup');
-    expect(setup.describe).toBeTruthy();
-    expect(setup.builder).toStrictEqual({});
+    it('should complain directory is not empty', async () => {
+        expect.assertions(1);
+        const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
+        process.chdir(tmpDir);
+        fs.writeFileSync(`${tmpDir + path.sep}README`, '');
 
-    await setup.handler({workdir: tmpDir});
-    rimraf.sync(tmpDir);
-});
+        const setup = require('commands/setup');
 
-test('setup directory not empty', async () => {
-    const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
-    process.chdir(tmpDir);
-    fs.writeFileSync(tmpDir + path.sep + 'README', '');
-
-    const setup = require('commands/setup');
-
-    expect.assertions(1);
-    await expect(setup.handler({})).rejects.toEqual(
-        Error('Current directory is not empty, setup cannot continue.')
-    );
+        await expect(setup.handler({})).rejects.toStrictEqual(
+            Error('Current directory is not empty, setup cannot continue.')
+        );
+        process.chdir(__dirname);
+        rimraf.sync(tmpDir);
+    });
 });

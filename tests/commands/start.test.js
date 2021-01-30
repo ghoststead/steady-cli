@@ -1,22 +1,32 @@
 jest.mock('execa');
 
-test('start', () => {
-    const start = require('commands/start');
-    expect(start.command).toBe('start');
-    expect(start.describe).toBeTruthy();
-    expect(start.builder).toStrictEqual({});
-    expect(start.handler({})).toBeUndefined();
-});
+describe('stop', () => {
+    // eslint-disable-next-line jest/no-hooks
+    afterEach(() => {
+        process.chdir(__dirname);
+    });
 
-test('start argv workdir', () => {
-    const start = require('commands/start');
-    expect(start.handler({workdir: '.'})).toBeUndefined();
-});
+    it('start', () => {
+        expect.assertions(4);
+        const start = require('commands/start');
+        expect(start.command).toBe('start');
+        expect(start.describe).toBeTruthy();
+        expect(start.builder).toStrictEqual({});
+        expect(start.handler({})).toBeUndefined();
+    });
 
-test('start rc workDir', () => {
-    const rc = require('utils/rc');
-    rc.config = {workDir: '.'};
+    it('start argv workdir', () => {
+        expect.assertions(1);
+        const start = require('commands/start');
+        expect(start.handler({workdir: '.'})).toBeUndefined();
+    });
 
-    const start = require('commands/start');
-    expect(start.handler({})).toBeUndefined();
+    it('start rc workdir', () => {
+        expect.assertions(1);
+        const rc = require('utils/rc');
+        rc.config = {workDir: '.'};
+
+        const start = require('commands/start');
+        expect(start.handler({})).toBeUndefined();
+    });
 });

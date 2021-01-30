@@ -1,5 +1,5 @@
 const execa = require('execa');
-const rc = require('../utils/rc.js');
+const workdir = require('../utils/workdir');
 
 module.exports = {
     command: 'start',
@@ -7,12 +7,7 @@ module.exports = {
     builder: {},
 
     handler: function (args) {
-        if (args.workdir) {
-            process.chdir(args.workdir);
-        } else if (rc.config.workDir) {
-            process.chdir(rc.config.workDir);
-        }
-
+        workdir.use(args);
         execa.sync('ghost', ['start', '--development'], {
             stdio: 'inherit'
         });

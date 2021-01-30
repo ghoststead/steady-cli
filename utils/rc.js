@@ -10,7 +10,7 @@ module.exports = (function () {
         require: function (name) {
             let value = config[name];
             if (value === undefined || value === null) {
-                console.error('Missing required config option: ' + name);
+                console.error(`Missing required config option: ${ name}`);
                 process.exit(1);
             }
             return value;

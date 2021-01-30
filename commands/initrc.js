@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+const workdir = require('../utils/workdir');
+
 const DEFAULT = {
     siteUrl: null,
     adminApiKey: null,
@@ -13,15 +15,15 @@ module.exports = {
 
     handler: function (args) {
         if (args.workdir) {
+            workdir.check(args.workdir);
             process.chdir(args.workdir);
         }
 
         const content = JSON.stringify(DEFAULT, null, 4);
         if (fs.existsSync('.steadyrc')) {
-            console.error('ERROR: .steadyrc already exists.');
-            return process.exit(1);
+            throw new Error(`.steadyrc already exists.`);
         }
 
-        fs.writeFileSync('.steadyrc', content + '\n');
+        fs.writeFileSync('.steadyrc', `${content }\n`);
     }
 };

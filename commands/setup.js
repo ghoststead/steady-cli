@@ -8,14 +8,15 @@ const execa = require('execa');
 const initrc = require('../commands/initrc');
 const dirIsEmpty = require('../utils/dir-is-empty');
 const walk = require('../utils/walk');
+const workdir = require('../utils/workdir');
 
 const GHOST_VERSION = '3.40.5-1';
-const GHOST_ZIPFILE = 'Ghost-' + GHOST_VERSION + '.zip';
-const GHOST_URL = 'https://github.com/ghoststead/Ghost/releases/download/v' + GHOST_VERSION + '/' + GHOST_ZIPFILE;
-const GHOST_DB_URL = 'https://github.com/ghoststead/Ghost/releases/download/v' + GHOST_VERSION + '/ghost.db';
+const GHOST_ZIPFILE = `Ghost-${ GHOST_VERSION }.zip`;
+const GHOST_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/${ GHOST_ZIPFILE}`;
+const GHOST_DB_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/ghost.db`;
 
 const THEME_URL = 'https://github.com/ghoststead/ghost-theme-ghoststead/archive/master.zip';
-const ROUTES_YAML_URL = 'https://github.com/ghoststead/Ghost/releases/download/v' + GHOST_VERSION + '/routes.yaml';
+const ROUTES_YAML_URL = `https://github.com/ghoststead/Ghost/releases/download/v${ GHOST_VERSION }/routes.yaml`;
 
 module.exports = {
     command: 'setup',
@@ -24,6 +25,7 @@ module.exports = {
 
     handler: async function (args) {
         if (args.workdir) {
+            workdir.check(args.workdir);
             process.chdir(args.workdir);
         }
 
@@ -35,7 +37,7 @@ module.exports = {
 
         console.log('Installing base Ghost image ...');
         execa.sync('ghost', ['install',
-            '--zip', '.dist/' + GHOST_ZIPFILE, '--db=sqlite3',
+            '--zip', `.dist/${ GHOST_ZIPFILE}`, '--db=sqlite3',
             '--no-prompt', '--no-stack', '--no-setup',
             '--dir', process.cwd()
         ], {stdio: 'inherit'});
@@ -97,10 +99,10 @@ module.exports = {
             stdio: 'inherit'
         });
 
-        console.log('Downloading ' + GHOST_DB_URL + ' ...');
+        console.log(`Downloading ${ GHOST_DB_URL } ...`);
         await download(GHOST_DB_URL, path.resolve('content/data'));
 
-        console.log('Downloading ' + ROUTES_YAML_URL + ' ...');
+        console.log(`Downloading ${ ROUTES_YAML_URL } ...`);
         await download(ROUTES_YAML_URL, path.resolve('content', 'settings'));
 
         fs.writeFileSync('.nvmrc', process.version);

@@ -1,7 +1,8 @@
 const path = require('path');
 const execa = require('execa');
 
-const rc = require('../utils/rc.js');
+const rc = require('../utils/rc');
+const workdir = require('../utils/workdir');
 
 module.exports = {
     command: 'develop',
@@ -9,14 +10,9 @@ module.exports = {
     builder: {},
 
     handler: function (args) {
-        let themeName = rc.config.themeName || 'ghoststead';
+        workdir.use(args);
 
-        if (args.workdir) {
-            process.chdir(args.workdir);
-        } else if (rc.config.workDir) {
-            process.chdir(rc.config.workDir);
-        }
-
+        const themeName = rc.config.themeName || 'ghoststead';
         execa.sync('npm', ['run', 'dev'], {
             cwd: path.resolve('content', 'themes', themeName),
             stdio: 'inherit'
