@@ -1,15 +1,9 @@
-const fs = require('fs');
-
 const rc = require('./rc');
+const stat = require('./stat');
 
 /* Ensure workdir exists and is a directory */
 function check(dir) {
-    let stats;
-    try {
-        stats = fs.statSync(dir);
-    } catch (e) {
-        stats = null;
-    }
+    const stats = stat(dir);
     if (!stats) {
         throw new Error(`The specified workdir does not exist: ${dir}`);
     }

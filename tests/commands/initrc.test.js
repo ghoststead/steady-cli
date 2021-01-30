@@ -13,8 +13,11 @@ describe('initrc', () => {
 
         const tmpDir = fs.mkdtempSync(os.tmpdir() + path.sep);
         process.chdir(tmpDir);
+
         expect(initrc.handler({})).toBeUndefined();
         expect(fs.existsSync(`${tmpDir + path.sep}.steadyrc`)).toBeTruthy();
+
+        process.chdir(__dirname);
         rimraf.sync(tmpDir);
     });
 
@@ -34,6 +37,8 @@ describe('initrc', () => {
         expect(() => {
             initrc.handler({workdir: '.'});
         }).toThrow('.steadyrc already exists.');
+
+        process.chdir(__dirname);
         rimraf.sync(tmpDir);
     });
 });

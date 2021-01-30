@@ -3,6 +3,7 @@ const execa = require('execa');
 
 const rc = require('../utils/rc');
 const workdir = require('../utils/workdir');
+const theme = require('../utils/theme');
 
 module.exports = {
     command: 'develop',
@@ -13,6 +14,8 @@ module.exports = {
         workdir.use(args);
 
         const themeName = rc.config.themeName || 'ghoststead';
+        theme.check(themeName);
+
         execa.sync('npm', ['run', 'dev'], {
             cwd: path.resolve('content', 'themes', themeName),
             stdio: 'inherit'
