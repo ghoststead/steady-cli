@@ -3,6 +3,9 @@
     "version": "1.8.0",
     "description": "CLI for maintaining Ghost sites",
     "main": "index.js",
+    "engines": {
+        "node": ">=10.12.0"
+    },
     "bin": {
         "steady": "./index.js",
         "steady-cli": "./index.js"
