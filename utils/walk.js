@@ -1,14 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = async function* walk(dir) {
-    for await (const d of await fs.promises.opendir(dir)) {
+module.exports = function* walk(dir) {
+    for (const d of fs.readdirSync(dir, {withFileTypes: true})) {
         const entry = path.join(dir, d.name);
         if (d.isFile()) {
             yield entry;
         }
         if (d.isDirectory()) {
-            yield* await walk(entry);
+            yield* walk(entry);
         }
     }
 };
