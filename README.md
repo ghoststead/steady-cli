@@ -1,14 +1,16 @@
+![Version](https://img.shields.io/badge/version-1.9.0-blue)
 ![GitHub](https://img.shields.io/github/license/ghoststead/steady-cli?label=License)
 ![Coverage](./badges/coverage.svg)
+![Node](https://img.shields.io/badge/node-%3E%3D%2010.20.1-brightgreen>)
 
 # CLI for programmatically maintaining Ghost sites
 `steady-cli` is an all-in-one tool for Ghost theme development and maintaining Ghost sites programmatically.
 
 ## Benefits
-* create and locally develop a new Ghost theme.
-* maintain your Ghost site programmatically without
+* Create and locally develop a new Ghost theme.
+* Maintain your Ghost site programmatically without
 having to go back and forth to the Admin UI.
-* easily integerated into an existing build process.
+* Easily integrate into an existing build process.
 
 ## Prerequisites
 * NodeJS/npm
@@ -120,6 +122,13 @@ If both options are used - i.e. you specify workdir on the command line and you 
 your `.steadyrc` file - then the command line option takes precedence and the `.steadyrc` file
 option is simply ignored.
 
+### Reset Ghost
+
+
+The `reset` command will reinitialize the Ghost SQLITE3 database, allowing the owner to go through the setup process again.
+Ghost **must** be stopped when running this command.
+
+*New in 1.9.0*
 
 ### Get help
 ```shell script
