@@ -47,12 +47,12 @@
         "form-data": "^3.0.0",
         "ghost-cli": "^1.15.3",
         "lodash": "^4.17.20",
+        "better-sqlite3": "^7.1.2",
         "xml2js": "^0.4.23",
         "yargs": "^15.4.1",
         "yarn": "^1.22.4"
     },
     "devDependencies": {
-        "better-sqlite3": "^7.1.2",
         "eslint": "^7.18.0",
         "eslint-plugin-ghost": "^1.4.1",
         "eslint-plugin-jest": "^24.1.3",
