@@ -128,6 +128,10 @@ option is simply ignored.
 The `reset` command will reinitialize the Ghost SQLITE3 database, allowing the owner to go through the setup process again.
 Ghost **must** be stopped when running this command.
 
+```shell
+steady reset
+```
+
 *New in 1.9.0*
 
 ### Get help
